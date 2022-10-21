@@ -1,5 +1,4 @@
 # CocktailR
----
 
 This app show cocktails and their recipe detail. 
 
