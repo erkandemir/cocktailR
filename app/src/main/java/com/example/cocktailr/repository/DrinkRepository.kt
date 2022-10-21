@@ -8,7 +8,7 @@ import com.example.cocktailr.model.CoctailResponse
 import com.example.cocktailr.model.Drink
 import retrofit2.*
 
-class DrinkRepository : BaseRepository<ApiDataService>(ApiDataService::class.java) {
+object DrinkRepository : BaseRepository<ApiDataService>(ApiDataService::class.java) {
     suspend fun getDrinkList() : Response<CoctailResponse> {
         return client.getDrinklist()
     }

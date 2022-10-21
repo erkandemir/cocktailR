@@ -14,9 +14,7 @@ import retrofit2.Response
 import kotlin.coroutines.coroutineContext
 
 class MainViewModel() : ViewModel() {
-    var rapository : DrinkRepository
     init {
-        rapository = DrinkRepository()
         getDrinkList()
     }
     val cocktailResponse : MutableLiveData<CoctailResponse> by lazy {
@@ -25,7 +23,7 @@ class MainViewModel() : ViewModel() {
 
     fun getDrinkList() {
         viewModelScope.launch {
-            val response = DrinkRepository().getDrinkList()
+            val response = DrinkRepository.getDrinkList()
            cocktailResponse.value  = response.body()
         }
     }
