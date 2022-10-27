@@ -1,20 +1,19 @@
 package com.example.cocktailr
 
+import android.content.res.Resources.Theme
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
 import com.example.cocktailr.model.CoctailResponse
 import com.example.cocktailr.ui.compose.DrinkListCompose
@@ -25,16 +24,35 @@ class MainActivity : ComponentActivity() {
     lateinit var mainViewModel : MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        mainViewModel.cocktailResponse.observe(this) {
+        showDrinkList()
+    }
+
+    fun showDrinkList()
+    {
+        mainViewModel.cocktailResponse.observe(this) { drinkList ->
             setContent {
-                CocktailRTheme {
-                    // A surface container using the 'background' color from the theme
-                    Surface(
-                        modifier = Modifier.fillMaxSize(),
-                        color = MaterialTheme.colors.background
-                    ) {
-                        DrinkListCompose.DrinkList(response = it)
+                MaterialTheme(
+
+                )
+                {
+                    Scaffold(
+                        topBar = {
+                            TopAppBar() {
+                                    Text("cocktailR")
+                        }}, bottomBar = {
+                            BottomAppBar() {
+                                Text("My bottom bar")
+                            }
+                        }
+                    ) { paddingValue ->
+                        Surface(
+                            modifier = Modifier
+                                .padding(paddingValue)
+                        ) {
+                            DrinkListCompose.DrinkList(response = drinkList, gridItemCount = 2)
+                        }
                     }
                 }
             }
